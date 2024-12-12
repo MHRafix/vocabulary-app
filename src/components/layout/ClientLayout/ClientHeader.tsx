@@ -8,24 +8,12 @@ import UserMenuAndSignInBtn from './UserMenuAndSignInBtn';
 
 const navData = [
 	{
-		label: 'Home',
-		link: '/',
+		label: 'Lessons',
+		link: '/lessons',
 	},
 	{
-		label: 'Explore',
-		link: '/explore',
-	},
-	{
-		label: 'Articles',
-		link: '/articles',
-	},
-	{
-		label: 'About us',
-		link: '/about_us',
-	},
-	{
-		label: 'Contact us',
-		link: '/contact_us',
+		label: 'Tutorials',
+		link: '/tutorials',
 	},
 ];
 
