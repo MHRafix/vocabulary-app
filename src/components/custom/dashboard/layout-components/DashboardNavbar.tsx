@@ -34,9 +34,13 @@ const DashboardNavbar: React.FC<Props> = ({ opened, onOpened }) => {
 			<Navbar.Section>
 				<Space h={10} />
 				<div className='flex items-center justify-start pl-3'>
-					<Link href={'/'}>
-						<Image src={'/logo.png'} alt='Logo' width={200} height={70} />
-					</Link>
+					<Image
+						src={'/assets/Logo/logo.png'}
+						alt='Logo'
+						width={250}
+						height={100}
+						className='!w-[250px] !object-cover'
+					/>
 				</div>
 			</Navbar.Section>
 			<Space h={30} />

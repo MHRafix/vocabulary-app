@@ -7,7 +7,7 @@ import {
 	MantineReactTable,
 	useMantineReactTable,
 } from 'mantine-react-table';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 interface Prop {
 	columns: MRT_ColumnDef<any>[];
@@ -37,66 +37,13 @@ const DataTable: React.FC<Prop> = ({
 	totalCount,
 	tableTitle,
 }) => {
-	const [pagination, setPagination] = useState({
-		pageIndex: 0,
-		pageSize: 100,
-	});
-	const [sorting, setSorting] = useState<any[]>([]);
-	const [columnFilters, setColumnFilters] = useState<any[]>([]);
-
-	useEffect(() => {
-		refetch();
-	}, [pagination.pageIndex, pagination.pageSize, sorting, columnFilters]);
-
-	// const exportCSV = () => {
-	// 	const csv = generateCsv(csvConfig)(data);
-	// 	downloadCsvFile(csvConfig)(csv);
-	// };
-
-	// const handleExportRows = (rows: MRT_Row<IAttendance>[]) => {
-	// 	const doc = new jsPDF();
-	// 	const tableData = rows.map((row) => Object.values(row.original));
-	// 	const tableHeaders = columns.map((c) => c.header);
-
-	// 	autoTable(doc, {
-	// 		head: [tableHeaders],
-	// 		body: tableData,
-	// 	});
-
-	// 	doc.save('mrt-pdf-example.pdf');
-	// };
-
 	const table = useMantineReactTable({
 		columns,
 		data,
-		columnFilterDisplayMode: 'popover',
-
 		state: {
-			// showProgressBars: loading,
-			pagination,
-			sorting,
+			showProgressBars: loading,
 		},
-		rowCount: totalCount,
 
-		onPaginationChange: setPagination,
-		onSortingChange: setSorting,
-		onColumnFiltersChange: setColumnFilters,
-
-		enableRowSelection: false,
-		enableColumnOrdering: false,
-		enableGlobalFilter: true,
-		enableRowNumbers: true,
-
-		manualPagination: true,
-		manualSorting: true,
-		manualFiltering: true,
-
-		paginationDisplayMode: 'pages',
-		initialState: {
-			showGlobalFilter: true,
-			showColumnFilters: true,
-			density: 'xs',
-		},
 		enableRowActions: RowActionMenu ? true : false,
 		positionActionsColumn: 'last',
 		renderRowActionMenuItems: (_row: any) =>

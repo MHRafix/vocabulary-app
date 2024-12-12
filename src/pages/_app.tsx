@@ -1,6 +1,7 @@
 import { vocabularyApplicationEmotionCache } from '@/utils/emotionCache';
 
 import { MantineProvider } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
@@ -28,7 +29,9 @@ export default function App({ Component, pageProps }: AppProps) {
 				}}
 			>
 				<Notifications position='top-right' zIndex={99999} />
-				<Component {...pageProps} />
+				<ModalsProvider>
+					<Component {...pageProps} />
+				</ModalsProvider>
 			</MantineProvider>
 		</QueryClientProvider>
 	);

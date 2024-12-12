@@ -4,5 +4,5 @@ import Router from 'next/router';
 // signout action function
 export const signOut = async () => {
 	Cookies.remove('user');
-	Router.push('/auth/signin');
+	Router.push('/auth/login');
 };

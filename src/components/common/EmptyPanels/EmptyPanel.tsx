@@ -2,7 +2,7 @@ import { Text } from "@mantine/core";
 import Image from "next/image";
 import React from "react";
 
-const SearchVisaEmptyPanel: React.FC<{
+const EmptyPanel: React.FC<{
   isShow: boolean;
   title: string;
   imgPath: string;
@@ -31,4 +31,4 @@ const SearchVisaEmptyPanel: React.FC<{
   );
 };
 
-export default SearchVisaEmptyPanel;
+export default EmptyPanel;

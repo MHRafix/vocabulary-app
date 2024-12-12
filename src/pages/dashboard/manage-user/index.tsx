@@ -1,11 +1,9 @@
-import { IState } from '@/app/api/model/others.model';
 import { IUser } from '@/app/api/model/user.model';
 import authenticationApiRepository from '@/app/api/repositories/user.repo';
 import DashboardProtectorWithSession from '@/app/config/authProtection/DashboardProtector';
 import DataTable from '@/components/common/Table/DataTable';
 import DashboardLayout from '@/components/custom/dashboard/DashboardLayout';
 import { Avatar, Badge, Menu } from '@mantine/core';
-import { useSetState } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -14,14 +12,6 @@ import { NextPage } from 'next';
 import { useMemo } from 'react';
 
 const ManageUser: NextPage = () => {
-	// states controls
-	const [state, setState] = useSetState<IState>({
-		modalOpened: false,
-		operationType: 'create',
-		operationId: null,
-		operationPayload: {},
-	});
-
 	// get all users
 	const {
 		data,
@@ -92,7 +82,7 @@ const ManageUser: NextPage = () => {
 						<Menu.Target>
 							<div>
 								<Badge
-									className='cursor-pointer'
+									className='!cursor-pointer'
 									radius={5}
 									size='lg'
 									py={18}

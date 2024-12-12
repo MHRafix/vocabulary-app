@@ -1,6 +1,7 @@
 import { useGetSession } from '@/app/config/logic/getSession';
 import { ActionIcon, Flex } from '@mantine/core';
 import { IconArrowBack } from '@tabler/icons-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import Router, { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -30,7 +31,7 @@ export const ClientHeader: React.FC<{ backIcon?: boolean }> = ({
 	return (
 		<nav className='py-2'>
 			<div className='wrapper'>
-				<div className='navbar-wrapper px-9 mx-auto h-[75px] flex justify-between items-center rounded-[10px] '>
+				<div className='navbar-wrapper px-9 mx-auto h-[90px] flex justify-between items-center rounded-[10px] '>
 					<Flex align='center' gap={10}>
 						{backIcon && (
 							<ActionIcon
@@ -43,27 +44,16 @@ export const ClientHeader: React.FC<{ backIcon?: boolean }> = ({
 								<IconArrowBack size={20} color='#000' />
 							</ActionIcon>
 						)}
-						{/* 
+
 						<div className='flex items-center justify-start pl-3'>
-							{data?.appSettings?.nodes[0]?.logo ? (
-								<Image
-									src={data?.appSettings?.nodes[0]?.logo!}
-									alt='Logo'
-									width={130}
-									height={52}
-									className='!h-[50px]'
-								/>
-							) : (
-								<Text
-									fz={35}
-									ff={'Nunito sans, sans-serif'}
-									fw={700}
-									color='violet'
-								>
-									Asia tours
-								</Text>
-							)}
-						</div> */}
+							<Image
+								src={'/assets/Logo/logo.png'}
+								alt='Logo'
+								width={250}
+								height={90}
+								className='!h-[80px]'
+							/>
+						</div>
 					</Flex>
 
 					{/* ----------- Desktop Nav ---------- */}

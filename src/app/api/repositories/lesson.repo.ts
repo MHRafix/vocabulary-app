@@ -28,8 +28,9 @@ class LessonApiRepository {
 	 * @param id string
 	 * @returns ILesson[]
 	 */
-	getLesson(id: string) {
-		return this.httpReq.get<ILesson>(`/lessons/${id}`);
+	async getLesson(id: string) {
+		const res = await this.httpReq.get<ILesson>(`/lessons/${id}`);
+		return res?.data;
 	}
 
 	/**

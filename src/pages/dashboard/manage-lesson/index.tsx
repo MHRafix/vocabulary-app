@@ -4,8 +4,9 @@ import lessonApiRepository from '@/app/api/repositories/lesson.repo';
 import DashboardProtectorWithSession from '@/app/config/authProtection/DashboardProtector';
 import DataTable from '@/components/common/Table/DataTable';
 import DashboardLayout from '@/components/custom/dashboard/DashboardLayout';
-import { Button, Menu } from '@mantine/core';
+import { Button, Menu, Text } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
+import { modals } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import {
 	IconCheck,
@@ -156,14 +157,22 @@ const ManageLessons: NextPage = () => {
 							Edit
 						</Menu.Item>
 						<Menu.Item
-							// onClick={() => {
-							// 	setState({
-							// 		modalOpened: true,
-							// 		operationPayload: row,
-							// 		operationType: 'update',
-							// 		operationId: row?._id,
-							// 	});
-							// }}
+							onClick={() =>
+								modals.openConfirmModal({
+									title: 'Please confirm your action',
+									children: (
+										<Text size='sm'>
+											Are sure to delete this lesson? Please click one of these
+											buttons to proceed.
+										</Text>
+									),
+									cancelProps: { color: 'red' },
+									confirmProps: { color: 'violet' },
+									labels: { confirm: 'Yes', cancel: 'No' },
+									onCancel: () => {},
+									onConfirm: () => deleteLesson(row?._id!),
+								})
+							}
 							icon={<IconTrash size={18} />}
 							color='red'
 						>
@@ -185,13 +194,19 @@ const ManageLessons: NextPage = () => {
 									operationPayload: null,
 								})
 							}
-							size='sm'
+							size='md'
 						>
 							Add new
 						</Button>
 					</>
 				}
-				loading={isLoading || isRefetching}
+				loading={
+					isLoading ||
+					isRefetching ||
+					__deletingLesson ||
+					__updatingLesson ||
+					__creatingLesson
+				}
 			/>
 		</DashboardLayout>
 	);

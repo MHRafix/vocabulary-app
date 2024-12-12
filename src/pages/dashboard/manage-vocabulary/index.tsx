@@ -7,6 +7,7 @@ import DataTable from '@/components/common/Table/DataTable';
 import DashboardLayout from '@/components/custom/dashboard/DashboardLayout';
 import { Button, Menu, Text } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
+import { modals } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import {
 	IconCheck,
@@ -179,7 +180,22 @@ const ManageVocabulary: NextPage = () => {
 							Edit
 						</Menu.Item>
 						<Menu.Item
-							// onClick={() => {
+							onClick={() =>
+								modals.openConfirmModal({
+									title: 'Please confirm your action',
+									children: (
+										<Text size='sm'>
+											Are sure to delete this vocabulary? Please click one of
+											these buttons to proceed.
+										</Text>
+									),
+									cancelProps: { color: 'red' },
+									confirmProps: { color: 'violet' },
+									labels: { confirm: 'Yes', cancel: 'No' },
+									onCancel: () => {},
+									onConfirm: () => deleteVocabulary(row?._id!),
+								})
+							} // onClick={() => {
 							// 	setState({
 							// 		modalOpened: true,
 							// 		operationPayload: row,
@@ -208,13 +224,19 @@ const ManageVocabulary: NextPage = () => {
 									operationPayload: null,
 								})
 							}
-							size='sm'
+							size='md'
 						>
 							Add new
 						</Button>
 					</>
 				}
-				loading={isLoading || isRefetching}
+				loading={
+					isLoading ||
+					isRefetching ||
+					__deletingVocabulary ||
+					__updatingVocabulary ||
+					__creatingVocabulary
+				}
 			/>
 		</DashboardLayout>
 	);

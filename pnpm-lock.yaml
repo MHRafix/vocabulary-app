@@ -19,6 +19,9 @@ dependencies:
   '@mantine/hooks':
     specifier: ^6.0.21
     version: 6.0.21(react@19.0.0)
+  '@mantine/modals':
+    specifier: ^6.0.21
+    version: 6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(react-dom@19.0.0)(react@19.0.0)
   '@mantine/next':
     specifier: ^6.0.21
     version: 6.0.21(@emotion/react@11.10.5)(@emotion/server@11.10.0)(next@15.1.0)(react-dom@19.0.0)(react@19.0.0)
@@ -627,6 +630,21 @@ packages:
       react: '>=16.8.0'
     dependencies:
       react: 19.0.0
+    dev: false
+
+  /@mantine/modals@6.0.21(@mantine/core@6.0.21)(@mantine/hooks@6.0.21)(react-dom@19.0.0)(react@19.0.0):
+    resolution: {integrity: sha512-Gx2D/ZHMUuYF197JKMWey4K9FeGP9rxYp4lmAEXUrjXiST2fEhLZOdiD75KuOHXd1/sYAU9NcNRo9wXrlF/gUA==}
+    peerDependencies:
+      '@mantine/core': 6.0.21
+      '@mantine/hooks': 6.0.21
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@mantine/core': 6.0.21(@emotion/react@11.10.5)(@mantine/hooks@6.0.21)(@types/react@18.0.27)(react-dom@19.0.0)(react@19.0.0)
+      '@mantine/hooks': 6.0.21(react@19.0.0)
+      '@mantine/utils': 6.0.21(react@19.0.0)
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
     dev: false
 
   /@mantine/next@6.0.21(@emotion/react@11.10.5)(@emotion/server@11.10.0)(next@15.1.0)(react-dom@19.0.0)(react@19.0.0):
