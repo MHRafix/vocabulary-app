@@ -1,7 +1,7 @@
 import { vocabularyApplicationEmotionCache } from '@/utils/emotionCache';
 
 import { MantineProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import '../styles/global.css';
@@ -19,17 +19,16 @@ export default function App({ Component, pageProps }: AppProps) {
 					colorScheme: 'light',
 					primaryColor: 'violet',
 					breakpoints: {
-						xs: 500,
-						sm: 800,
-						md: 1000,
-						lg: 1200,
-						xl: 1400,
+						xs: '500',
+						sm: '800',
+						md: '1000',
+						lg: '1200',
+						xl: '1400',
 					},
 				}}
 			>
-				<NotificationsProvider position='top-right' zIndex={99999}>
-					<Component {...pageProps} />
-				</NotificationsProvider>
+				<Notifications position='top-right' zIndex={99999} />
+				<Component {...pageProps} />
 			</MantineProvider>
 		</QueryClientProvider>
 	);

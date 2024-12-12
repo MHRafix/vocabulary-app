@@ -4,5 +4,5 @@ export interface IUser {
 	email: string;
 	avatar: string;
 	accessToken: string;
-	role: string;
+	role: 'LEARNER' | 'ADMIN';
 }

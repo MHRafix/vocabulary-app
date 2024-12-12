@@ -1,5 +1,7 @@
-export interface IUser {
-	name: string;
-	email: string;
-	role: string;
+export interface IState {
+	modalOpened: boolean;
+	operationType: 'create' | 'update';
+	operationId?: string | null;
+	operationPayload?: any;
+	status?: any;
 }

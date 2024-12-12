@@ -7,12 +7,21 @@ class AuthenticationApiRepository {
 	constructor(private httpReq: AxiosInstance) {}
 
 	/**
-	 * logged user api
-	 * @param payload
+	 * get single user api
+	 * @param id string
 	 * @returns
 	 */
-	getLoggedUser(id: string) {
+	getUser(id: string) {
 		return this.httpReq.get<IUser>(`/authentication/${id}`);
+	}
+
+	/**
+	 * get all user api
+	 * @returns
+	 */
+	async getUsers() {
+		const res = await this.httpReq.get<IUser[]>(`/authentication/users`);
+		return res?.data;
 	}
 
 	/**
@@ -37,6 +46,16 @@ class AuthenticationApiRepository {
 			`/authentication/signup`,
 			payload
 		);
+	}
+
+	/**
+	 *  update user role api
+	 * @param id string
+	 * @param payload
+	 * @returns
+	 */
+	userUpdateRole(id: string, payload: { role: 'LEARNER' | 'ADMIN' }) {
+		return this.httpReq.patch(`/authentication/${id}`, payload);
 	}
 }
 
