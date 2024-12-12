@@ -17,7 +17,6 @@ const ClientFooter: React.FC<{}> = () => {
 			<Container size='lg' p='sm'>
 				<div className='grid lg:grid-cols-4 text-white gap-y-5'>
 					<div>
-						{/* <Image src={Logo} alt='logo' width={70} height={70} /> */}
 						<Text fz={25} fw={700} color='teal'>
 							Vocabulary App
 						</Text>

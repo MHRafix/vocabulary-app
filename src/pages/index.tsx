@@ -1,16 +1,13 @@
-import protectWithSession from '@/app/config/authProtection/protectWithSession';
-import ClientAppLayout from '@/components/layout/ClientLayout/ClientAppLayout';
-import { Container } from '@mantine/core';
+import handleUserDestination from '@/app/config/authProtection/handleUserDestination';
+import { Loader } from '@mantine/core';
 import { NextPage } from 'next';
 
 const HomePage: NextPage = () => {
 	return (
-		<ClientAppLayout>
-			<>
-				<Container size='lg' p='xs' mt={50}></Container>
-			</>
-		</ClientAppLayout>
+		<div className='flex justify-center items-center h-screen'>
+			<Loader color='violet' size={'xl'} />
+		</div>
 	);
 };
 
-export default protectWithSession(HomePage);
+export default handleUserDestination(HomePage);
