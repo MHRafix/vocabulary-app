@@ -14,19 +14,18 @@ const LessonsPage: NextPage = () => {
 		data,
 		isLoading,
 		refetch: onRefetch,
-		isRefetching,
 	} = useQuery({
 		queryKey: ['learner_lessons'],
 		queryFn: async () => await lessonApiRepository.getLessons(),
 	});
 
 	return (
-		<ClientAppLayout>
+		<ClientAppLayout title='Lessons'>
 			<Container size={'lg'}>
 				<Space h={50} />
 				<Title order={2}>My Lessons</Title>
 				<Space h={20} />
-				<div className='grid lg:grid-cols-3 gap-5'>
+				<div className='grid sm:grid-cols-2 lg:grid-cols-3 gap-5'>
 					{data?.map((lesson: ILesson, idx: number) => (
 						<Link href={`/lessons/${lesson?._id}`}>
 							<Paper

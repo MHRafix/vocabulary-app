@@ -3,8 +3,10 @@ import { IState } from '@/app/api/model/others.model';
 import { IVocabulary } from '@/app/api/model/vocabulary.model';
 import vocabularyApiRepository from '@/app/api/repositories/vocabulary.repo';
 import DashboardProtectorWithSession from '@/app/config/authProtection/DashboardProtector';
+import DrawerWrapper from '@/components/common/Drawer/DrawerWrapper';
 import DataTable from '@/components/common/Table/DataTable';
 import DashboardLayout from '@/components/custom/dashboard/DashboardLayout';
+import VocabularyForm from '@/components/custom/dashboard/manage-vocabulary/VocabularyForm';
 import { Button, Menu, Text } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
@@ -48,6 +50,11 @@ const ManageVocabulary: NextPage = () => {
 			mutationFn: async (payload: IVocabulary) =>
 				await vocabularyApiRepository.createVocabulary(payload),
 			onSuccess() {
+				setState({
+					modalOpened: false,
+					operationId: null,
+					operationPayload: null,
+				});
 				showNotification({
 					title: 'Vocabulary created successfully.',
 					color: 'teal',
@@ -70,14 +77,14 @@ const ManageVocabulary: NextPage = () => {
 	const { mutate: updateVocabulary, isPending: __updatingVocabulary } =
 		useMutation({
 			mutationKey: ['update_vocabulary'],
-			mutationFn: async ({
-				id,
-				payload,
-			}: {
-				id: string;
-				payload: IVocabulary;
-			}) => await vocabularyApiRepository.updateVocabulary(id, payload),
+			mutationFn: async ({ id, payload }: { id: string; payload: any }) =>
+				await vocabularyApiRepository.updateVocabulary(id, payload),
 			onSuccess() {
+				setState({
+					modalOpened: false,
+					operationId: null,
+					operationPayload: null,
+				});
 				showNotification({
 					title: 'Vocabulary updated successfully.',
 					color: 'teal',
@@ -238,6 +245,24 @@ const ManageVocabulary: NextPage = () => {
 					__creatingVocabulary
 				}
 			/>
+
+			<DrawerWrapper
+				opened={state.modalOpened}
+				title='Create or update vocabulary'
+				size='lg'
+				close={() =>
+					setState({
+						modalOpened: false,
+					})
+				}
+			>
+				<VocabularyForm
+					isPending={__creatingVocabulary || __updatingVocabulary}
+					state={state}
+					updateVocabulary={updateVocabulary}
+					createVocabulary={createVocabulary}
+				/>
+			</DrawerWrapper>
 		</DashboardLayout>
 	);
 };

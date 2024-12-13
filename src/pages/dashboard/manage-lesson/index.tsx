@@ -2,8 +2,10 @@ import { ILesson } from '@/app/api/model/lesson.model';
 import { IState } from '@/app/api/model/others.model';
 import lessonApiRepository from '@/app/api/repositories/lesson.repo';
 import DashboardProtectorWithSession from '@/app/config/authProtection/DashboardProtector';
+import DrawerWrapper from '@/components/common/Drawer/DrawerWrapper';
 import DataTable from '@/components/common/Table/DataTable';
 import DashboardLayout from '@/components/custom/dashboard/DashboardLayout';
+import LessonForm from '@/components/custom/dashboard/manage-lesson/LessonForm';
 import { Button, Menu, Text } from '@mantine/core';
 import { useSetState } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
@@ -47,6 +49,11 @@ const ManageLessons: NextPage = () => {
 		mutationFn: async (payload: ILesson) =>
 			await lessonApiRepository.createLesson(payload),
 		onSuccess() {
+			setState({
+				modalOpened: false,
+				operationId: null,
+				operationPayload: null,
+			});
 			showNotification({
 				title: 'Lesson created successfully.',
 				color: 'teal',
@@ -71,6 +78,11 @@ const ManageLessons: NextPage = () => {
 		mutationFn: async ({ id, payload }: { id: string; payload: ILesson }) =>
 			await lessonApiRepository.updateLesson(id, payload),
 		onSuccess() {
+			setState({
+				modalOpened: false,
+				operationId: null,
+				operationPayload: null,
+			});
 			showNotification({
 				title: 'Lesson updated successfully.',
 				color: 'teal',
@@ -101,6 +113,7 @@ const ManageLessons: NextPage = () => {
 				icon: <IconCheck size={16} />,
 				message: '',
 			});
+
 			onRefetch();
 		},
 		onError(error) {
@@ -208,6 +221,24 @@ const ManageLessons: NextPage = () => {
 					__creatingLesson
 				}
 			/>
+
+			<DrawerWrapper
+				opened={state.modalOpened}
+				title='Create or update lesson'
+				size='lg'
+				close={() =>
+					setState({
+						modalOpened: false,
+					})
+				}
+			>
+				<LessonForm
+					isPending={__creatingLesson || __updatingLesson}
+					state={state}
+					createLesson={createLesson}
+					updateLesson={updateLesson}
+				/>
+			</DrawerWrapper>
 		</DashboardLayout>
 	);
 };

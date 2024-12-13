@@ -1,9 +1,8 @@
 import { useGetSession } from '@/app/config/logic/getSession';
-import { ActionIcon, Flex } from '@mantine/core';
-import { IconArrowBack } from '@tabler/icons-react';
+import { Flex } from '@mantine/core';
 import Image from 'next/image';
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import UserMenuAndSignInBtn from './UserMenuAndSignInBtn';
 
@@ -18,9 +17,7 @@ const navData = [
 	},
 ];
 
-export const ClientHeader: React.FC<{ backIcon?: boolean }> = ({
-	backIcon,
-}) => {
+export const ClientHeader: React.FC<{}> = ({}) => {
 	const { user } = useGetSession();
 	const [opened, setOpened] = useState(false);
 
@@ -33,27 +30,13 @@ export const ClientHeader: React.FC<{ backIcon?: boolean }> = ({
 			<div className='wrapper'>
 				<div className='navbar-wrapper px-9 mx-auto h-[90px] flex justify-between items-center rounded-[10px] '>
 					<Flex align='center' gap={10}>
-						{backIcon && (
-							<ActionIcon
-								onClick={() => Router.back()}
-								size={40}
-								radius='xl'
-								variant='light'
-								className='!bg-slate-100 hover:!bg-slate-200 hover:duration-300'
-							>
-								<IconArrowBack size={20} color='#000' />
-							</ActionIcon>
-						)}
-
-						<div className='flex items-center justify-start pl-3'>
-							<Image
-								src={'/assets/Logo/logo.png'}
-								alt='Logo'
-								width={250}
-								height={90}
-								className='!h-[80px]'
-							/>
-						</div>
+						<Image
+							src={'/assets/Logo/logo.png'}
+							alt='Logo'
+							width={250}
+							height={90}
+							className='!h-[80px]'
+						/>
 					</Flex>
 
 					{/* ----------- Desktop Nav ---------- */}

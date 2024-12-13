@@ -34,9 +34,11 @@
 		"nest": "^0.1.6",
 		"next": "15.1.0",
 		"react": "19.0.0",
+		"react-confetti": "^6.1.0",
 		"react-dom": "19.0.0",
 		"react-hook-form": "^7.43.9",
 		"react-query": "^3.39.3",
+		"react-use": "^17.6.0",
 		"typescript": "4.9.4",
 		"yup": "^0.32.11"
 	},

@@ -1,7 +1,9 @@
 import { AxiosInstance } from 'axios';
 import httpReq from '../http';
-import { ILesson } from '../model/lesson.model';
-import { IVocabulary } from '../model/vocabulary.model';
+import {
+	IVocabulary,
+	IVocabularyWithPagination,
+} from '../model/vocabulary.model';
 
 class VocabularyApiRepository {
 	constructor(private httpReq: AxiosInstance) {}
@@ -25,12 +27,26 @@ class VocabularyApiRepository {
 	}
 
 	/**
+	 * get all vocabulary by lesson id
+	 * @params id - string
+	 * @params limit - number
+	 * @params page - page
+	 * @returns IVocabulary[]
+	 */
+	async getVocabulariesByLessonId(id: string, limit: number, page: number) {
+		const res = await this.httpReq.get<IVocabularyWithPagination>(
+			`/vocabularies/findByLessonId/${id}?limit=${limit}&page=${page}`
+		);
+		return res?.data;
+	}
+
+	/**
 	 * get single vocabulary api
 	 * @param id string
 	 * @returns IVocabulary[]
 	 */
 	async getVocabulary(id: string) {
-		const res = await this.httpReq.get<ILesson>(`/vocabularies/${id}`);
+		const res = await this.httpReq.get<IVocabulary>(`/vocabularies/${id}`);
 		return res?.data;
 	}
 

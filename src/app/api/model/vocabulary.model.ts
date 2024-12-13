@@ -8,3 +8,8 @@ export interface IVocabulary {
 	lessonNo: ILesson;
 	adminEmail: string;
 }
+export interface IVocabularyWithPagination {
+	total: number;
+	hasNext: boolean;
+	vocabularies: IVocabulary[];
+}
