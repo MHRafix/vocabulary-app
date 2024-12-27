@@ -1,9 +1,9 @@
-import { IAuthPayload } from '@/pages/auth/register';
+import { IAuthPayload } from '@/pages/auth/verify-link';
 import { AxiosInstance } from 'axios';
 import httpReq from '../http';
 import { IUser } from '../model/user.model';
 
-class AuthenticationApiRepository {
+class UserApiRepository {
 	constructor(private httpReq: AxiosInstance) {}
 
 	/**
@@ -12,7 +12,7 @@ class AuthenticationApiRepository {
 	 * @returns
 	 */
 	getUser(id: string) {
-		return this.httpReq.get<IUser>(`/authentication/${id}`);
+		return this.httpReq.get<IUser>(`/user/${id}`);
 	}
 
 	/**
@@ -20,44 +20,44 @@ class AuthenticationApiRepository {
 	 * @returns
 	 */
 	async getUsers() {
-		const res = await this.httpReq.get<IUser[]>(`/authentication/users`);
+		const res = await this.httpReq.get<IUser[]>(`/user/all-users`);
 		return res?.data;
 	}
 
 	/**
-	 * user login api
+	 * send magic link api
 	 * @param payload
 	 * @returns
 	 */
-	userLogin(payload: IAuthPayload) {
+	sendMagicLink(payload: IAuthPayload) {
 		return this.httpReq.post<{ token: string; _id: string }>(
-			`/authentication/signin`,
+			`/authentication/send-magic-link`,
 			payload
 		);
 	}
 
 	/**
-	 * user signup api
+	 * verify token and user signup api
 	 * @param payload
 	 * @returns
 	 */
-	userRegister(payload: IAuthPayload) {
-		return this.httpReq.post<{ token: string; _id: string }>(
-			`/authentication/signup`,
+	verifyTokenAndSignup(payload: IAuthPayload) {
+		return this.httpReq.post<{ token: string }>(
+			`/authentication/verify-link`,
 			payload
 		);
 	}
 
 	/**
-	 *  update user role api
+	 *  update user api
 	 * @param id string
 	 * @param payload
 	 * @returns
 	 */
-	userUpdateRole(id: string, payload: { role: 'LEARNER' | 'ADMIN' }) {
-		return this.httpReq.patch(`/authentication/${id}`, payload);
+	updateUser(id: string, payload: IUser) {
+		return this.httpReq.patch(`/user/${id}`, payload);
 	}
 }
 
-const authenticationApiRepository = new AuthenticationApiRepository(httpReq);
-export default authenticationApiRepository;
+const userApiRepository = new UserApiRepository(httpReq);
+export default userApiRepository;

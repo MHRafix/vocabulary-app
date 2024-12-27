@@ -15,12 +15,12 @@ const protectWithoutSession = <P extends object>(
 			if (user && !isLoading) {
 				router.push('/');
 			}
-		}, [user, isLoading]);
+		}, [user, isLoading, router]);
 
 		if (isLoading || user) {
 			return (
 				<div className='flex justify-center w-full h-screen items-center'>
-					<Loader color='teal' size='sm' />
+					<Loader color='violet' size='sm' />
 				</div>
 			);
 		}

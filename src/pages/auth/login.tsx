@@ -1,25 +1,16 @@
 import protectWithoutSession from '@/app/config/authProtection/potectWithoutSession';
 
-import authenticationApiRepository from '@/app/api/repositories/user.repo';
+import authenticationApiRepository from '@/app/api/repositories/authentication.repo';
 import { ErrorMessage } from '@hookform/error-message';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Flex, Input, PasswordInput, Title } from '@mantine/core/';
+import { Box, Button, Flex, Input, Title } from '@mantine/core/';
 import { showNotification } from '@mantine/notifications';
-import {
-	IconCheck,
-	IconLock,
-	IconMail,
-	IconUserPlus,
-	IconX,
-} from '@tabler/icons-react';
+import { IconCheck, IconMail, IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
-import Cookies from 'js-cookie';
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as Yup from 'yup';
-import { IAuthPayload } from './register';
 
 const LoginPage: NextPage = () => {
 	const router = useRouter();
@@ -30,40 +21,39 @@ const LoginPage: NextPage = () => {
 		register,
 		formState: { errors },
 	} = useForm({
-		defaultValues: { email: '', password: '' },
+		defaultValues: { email: '' },
 		resolver: yupResolver(Login_Form_Validation_Schema),
 	});
 
 	// execute after success
-	const onSuccess = (res: { token: string; _id: string }) => {
-		Cookies.set('user', JSON.stringify(res), {
-			expires: 5,
-			sameSite: 'strict',
-		});
-		if (router?.query?.callback) {
-			router?.push(router?.query?.callback as string);
-		} else {
-			router?.push('/');
-		}
-	};
+	// const onSuccess = (res: { token: string; _id: string }) => {
+	// 	Cookies.set('user', JSON.stringify(res), {
+	// 		expires: 5,
+	// 		sameSite: 'strict',
+	// 	});
+	// 	if (router?.query?.callback) {
+	// 		router?.push(router?.query?.callback as string);
+	// 	} else {
+	// 		router?.push('/');
+	// 	}
+	// };
 
 	// login mutation
 	const { mutate, isPending } = useMutation({
 		mutationKey: ['Login_Mutation'],
-		mutationFn: (payload: IAuthPayload) =>
-			authenticationApiRepository.userLogin(payload),
+		mutationFn: (payload: ISendMagicLinkPayload) =>
+			authenticationApiRepository.sendMagicLink(payload),
 		onSuccess(res) {
 			showNotification({
-				title: 'Login successful.',
+				title: 'Link successfully has been sent to your email.',
 				color: 'teal',
 				icon: <IconCheck size={16} />,
-				message: '',
+				message: 'Please check your email inbox.',
 			});
-			onSuccess(res?.data);
 		},
 		onError(error) {
 			showNotification({
-				title: 'Failed to login.',
+				title: 'Failed to send link.',
 				color: 'red',
 				icon: <IconX size={16} />,
 				message: error?.message,
@@ -72,7 +62,7 @@ const LoginPage: NextPage = () => {
 	});
 
 	// handle form submission
-	const handleLogin = async (payload: IAuthPayload) => {
+	const handleLogin = (payload: ISendMagicLinkPayload) => {
 		mutate(payload);
 	};
 
@@ -100,20 +90,7 @@ const LoginPage: NextPage = () => {
 							}}
 						/>
 					</Input.Wrapper>
-					<Input.Wrapper
-						label='Password'
-						my={10}
-						error={<ErrorMessage errors={errors} name='password' />}
-					>
-						<PasswordInput
-							disabled={isPending}
-							{...register('password')}
-							icon={<IconLock size={20} />}
-							placeholder='**** ****'
-							size='md'
-							variant='filled'
-						/>
-					</Input.Wrapper>
+
 					<Button
 						type='submit'
 						color='violet'
@@ -125,13 +102,6 @@ const LoginPage: NextPage = () => {
 						Login now
 					</Button>
 				</form>
-				<div className='text-right mt-3'>
-					<Link href='/auth/register'>
-						<Button color='violet' rightIcon={<IconUserPlus size={18} />}>
-							Register now
-						</Button>
-					</Link>
-				</div>
 			</Box>
 		</Flex>
 	);
@@ -141,5 +111,8 @@ export default protectWithoutSession(LoginPage);
 
 export const Login_Form_Validation_Schema = Yup.object().shape({
 	email: Yup.string().email().required().label('Email'),
-	password: Yup.string().required().min(8).max(20).label('Password'),
 });
+
+export interface ISendMagicLinkPayload {
+	email: string;
+}

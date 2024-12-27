@@ -1,4 +1,4 @@
-import { vocabularyApplicationEmotionCache } from '@/utils/emotionCache';
+import { bookNestApplicationEmotionCache } from '@/utils/emotionCache';
 
 import { MantineProvider } from '@mantine/core';
 import { ModalsProvider } from '@mantine/modals';
@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
 			<MantineProvider
-				emotionCache={vocabularyApplicationEmotionCache}
+				emotionCache={bookNestApplicationEmotionCache}
 				theme={{
 					fontFamily: 'Nunito sans, sans-serif',
 					colorScheme: 'light',

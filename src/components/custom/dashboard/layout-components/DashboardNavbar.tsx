@@ -6,12 +6,7 @@ import {
 	Space,
 	Text,
 } from '@mantine/core';
-import {
-	IconBook,
-	IconUsers,
-	IconVocabulary,
-	IconX,
-} from '@tabler/icons-react';
+import { IconBook, IconX } from '@tabler/icons-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -103,18 +98,8 @@ export default DashboardNavbar;
 
 export const menus = [
 	{
-		label: 'Lesson Management',
+		label: 'Book Management',
 		icon: <IconBook size={20} />,
-		href: '/dashboard/manage-lesson',
-	},
-	{
-		label: 'Vocabulary Management',
-		icon: <IconVocabulary size={20} />,
-		href: '/dashboard/manage-vocabulary',
-	},
-	{
-		label: 'User Management',
-		icon: <IconUsers size={20} />,
-		href: '/dashboard/manage-user',
+		href: '/manage-books',
 	},
 ];

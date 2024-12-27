@@ -1,13 +1,8 @@
-import handleUserDestination from '@/app/config/authProtection/handleUserDestination';
-import { Loader } from '@mantine/core';
+import protectWithSession from '@/app/config/authProtection/protectWithSession';
 import { NextPage } from 'next';
 
 const HomePage: NextPage = () => {
-	return (
-		<div className='flex justify-center items-center h-screen'>
-			<Loader color='violet' size={'xl'} />
-		</div>
-	);
+	return <div className='flex justify-center items-center h-screen'>aaaa</div>;
 };
 
-export default handleUserDestination(HomePage);
+export default protectWithSession(HomePage);

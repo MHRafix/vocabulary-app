@@ -1,4 +1,4 @@
-import authenticationApiRepository from '@/app/api/repositories/user.repo';
+import userApiRepository from '@/app/api/repositories/user.repo';
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 
@@ -12,8 +12,7 @@ export const useGetSession = () => {
 		refetch: onRefetch,
 	} = useQuery({
 		queryKey: ['get_logged_in_user_session'],
-		queryFn: async () =>
-			await authenticationApiRepository.getUser(userInfo?._id),
+		queryFn: async () => await userApiRepository.getUser(userInfo?._id),
 		enabled: Boolean(userInfo?._id),
 	});
 

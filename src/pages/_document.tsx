@@ -1,8 +1,8 @@
-import { vocabularyApplicationEmotionCache } from '@/utils/emotionCache';
+import { bookNestApplicationEmotionCache } from '@/utils/emotionCache';
 import { ServerStyles, createStylesServer } from '@mantine/next';
 import Document, { DocumentContext } from 'next/document';
 
-const stylesServer = createStylesServer(vocabularyApplicationEmotionCache);
+const stylesServer = createStylesServer(bookNestApplicationEmotionCache);
 
 export default class _Document extends Document {
 	static async getInitialProps(ctx: DocumentContext) {
@@ -15,7 +15,7 @@ export default class _Document extends Document {
 				<ServerStyles
 					html={initialProps.html}
 					server={stylesServer}
-					key='vocabulary-app-styles'
+					key='book-nest-app-styles'
 				/>,
 			],
 		};
